@@ -47,9 +47,6 @@ exports.index = function(req, res){
           console.log(err2);
         })
 
-
-        console.log(global.users);
-
         res.render('admin',{
             nrp:nrp,
             user:global.users,

@@ -4,6 +4,7 @@ const router = express.Router();
 
 let Log = require('../model/log');
 let User = require('../model/user');
+let Gate = require('../model/gate');
 
 exports.home = function(req, res){
 
@@ -16,7 +17,8 @@ exports.home = function(req, res){
 			res.redirect('/admin');			
 		}
 		var nrp = req.session.nrp;
-		res.render('home',{nrp:nrp});
+		var gate = req.session.gate;
+		res.render('home',{nrp:nrp, gate:gate});
 	}
 }
 
@@ -35,14 +37,35 @@ exports.dologin = function(req, res){
 			req.session.nrp = '-';
 		   res.redirect('/login');
 	   }else{
+			
 			req.session.nrp = nrp2;
-			req.session.role = data.role;
-		   console.log("is null")
-		   res.redirect('/');
+			req.session.gate = data.gateid;
+			req.session.role = data.role;			
+
+			Gate.findOne({idgate:data.gateid})
+			.then((data)=>{
+				 console.log("hehe"+data)
+				 console.log(Date.parse(data.start))
+				 console.log(Date.parse(data.end))
+				 console.log(Date.now())
+				 console.log(Date.parse(data.start) < Date.now() && Date.now() < Date.parse(data.end))
+				 if(Date.parse(data.start) < Date.now() && Date.now() < Date.parse(data.end)){
+					res.redirect('/');				 
+				 }else{
+					req.session.nrp = '-';
+					req.session.gate = '-';
+					req.session.role = '-';
+					res.redirect('/login');
+				 }			 
+			 })
+			.catch((err)=>{
+			  console.log(err);
+			})
+
 	   }
 	})
    .catch((err)=>{
-	   console.log("no data");
+	   console.log(err);
    });	
 	
 }
