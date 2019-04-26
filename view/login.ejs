@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <% include ../view/navbar.ejs %>
+</head>
+<body>
+	<div class="container">
+        <center class="mt-4 text-warning">
+            <h5><p id="time"></p></h5>
+        </center>
+        <div class="card border-primary mb-3 mt-5" style="max-width: 30rem; margin: auto">
+            <div class="card-header">Login</div>
+            <form action="/dologin" method="POST">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="">NRP</label>
+                    <input class="form-control" type="text" name="nrp" id="">
+                </div>
+                <div class="form-group">
+                    <label for="">Password</label>
+                    <input class="form-control" type="password" name="password" id="">
+                </div>
+                <button class="btn btn-primary">Login</button>
+            </div>
+            </form>
+        </div>            
+	</div>
+</body>
+
+<script>
+    var timeDisplay = document.getElementById("time");
+
+    function refreshTime() {
+    var dateString = new Date().toLocaleString("en-US", {timeZone: "Asia/Jakarta"});
+    var formattedString = dateString.replace(", ", " - ");
+    timeDisplay.innerHTML = formattedString;
+    }
+
+    setInterval(refreshTime, 1000);
+</script>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <% include ../view/navbar.ejs %>
+</head>
+<body>
+	<div class="container">
+        
+        <center class="mt-4 text-success">
+            <h3>Selamat Datang Admin!</h3>
+            <h2><p id="time"></p></h2>
+        </center>
+        <hr>
+        <div class="row">
+            <div class="col-6">
+                <div class="card border-success">
+                    <div class="card-header">User</div>
+                    <div class="card-body">                
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <th>NRP</th>
+                                <th>Gate</th>
+                            </thead>
+                            <tbody>
+                                <% user.forEach(function(user){%>
+                                <tr>
+                                    <td><%= user.nrp %></td>
+                                    <td><%= user.gateid %></td>
+                                </tr>
+                                <% }) %>                                                        
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card border-warning mb-3">
+                    <div class="card-header">Gate</div>
+                    <div class="card-body">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <th>Gate</th>
+                                <th>Start</th>
+                                <th>End</th>
+                            </thead>
+                            <tbody>
+                                <% gate.forEach(function(gate){%>
+                                <tr>
+                                    <td><%= gate.idgate %></td>
+                                    <td><%= gate.start %></td>
+                                    <td><%= gate.end %></td>
+                                </tr>
+                                <% }) %>  
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>            
+        </div>
+
+    </div>
+</body>
+
+<script>
+    var timeDisplay = document.getElementById("time");
+
+    function refreshTime() {
+    var dateString = new Date().toLocaleString("en-US", {timeZone: "Asia/Jakarta"});
+    var formattedString = dateString.replace(", ", " - ");
+    timeDisplay.innerHTML = formattedString;
+    }
+
+    setInterval(refreshTime, 1000);
+</script>
+
+</html>
