@@ -15,21 +15,57 @@
         <div class="row">
             <div class="col-6">
                 <div class="card border-success">
-                    <div class="card-header">User</div>
+                    <div class="card-header">User<button type="button" class="btn btn-secondary btn-sm float-right" data-toggle="modal" data-target="#createuserModal">Tambah</button></div>
                     <div class="card-body">                
                         <table class="table table-hover table-bordered">
                             <thead>
                                 <th>NRP</th>
                                 <th>Password</th>
-                                <th>Gate</th>
+                                <th>Gates</th>
                             </thead>
                             <tbody>
                                 <% user.forEach(function(user){%>
                                 <tr>
                                     <td><%= user.nrp %></td>
                                     <td><%= user.password %></td>
-                                    <td><%= user.gateid %></td>
+                                    <td><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#usermyModal<%= user.nrp %>">Ubah</button></td>
                                 </tr>
+                                <div class="modal fade" id="usermyModal<%= user.nrp %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">User : <%= user.nrp %></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="/updategate" method="POST">
+                                                <input class="form-control" type="hidden" name="id" id="" value="<%= gate.id %>" required>
+                                                <div class="form-group">
+                                                    <label for="">Gate</label>
+                                                    <select class="form-control" name="gate" id="">
+                                                        <% gate.forEach(function(gate){%>
+                                                            <option value="<%= gate.idgate %>">Gate <%= gate.idgate %></option>
+                                                        <% }) %>    
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <% usergates.forEach(function(usergates){%>
+                                                        <% if(user.nrp == usergates.nrp){ %>
+                                                            <a href="">Gate <%= usergates.idgate %></a>
+                                                        <% }%>
+                                                    <% }) %>    
+                                                </div>                                                
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </form>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>                                        
                                 <% }) %>                                                        
                             </tbody>
                         </table>
@@ -38,7 +74,7 @@
             </div>
             <div class="col-6">
                 <div class="card border-warning mb-3">
-                    <div class="card-header">Gate <button type="button" class="btn btn-secondary btn-sm float-right" data-toggle="modal" data-target="#createModal">Tambah</button>></div>
+                    <div class="card-header">Gate <button type="button" class="btn btn-secondary btn-sm float-right" data-toggle="modal" data-target="#createModal">Tambah</button></div>
                     <div class="card-body">
                         <table class="table table-hover table-bordered">
                             <thead>
@@ -128,7 +164,36 @@
         </div>
         </div>
     </div>
-    </div>                                        
+    </div>                    
+    
+    <div class="modal fade" id="createuserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Tambah User</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form action="/adduser" method="POST">           
+            <div class="form-group">
+                <label for="">nrp</label>
+                <input class="form-control" type="text" name="nrp" id="" required>
+            </div>
+            <div class="form-group">
+                <label for="">password</label>
+                <input class="form-control" type="password" name="password" id="" required>
+            </div>                                                
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+            </form>
+        </div>
+        </div>
+    </div>
+    </div>        
     
 </body>
 

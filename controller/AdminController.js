@@ -70,6 +70,7 @@ exports.index = function(req, res){
         
         global.gates;
         global.users;
+        global.usergates;
         
         Gate.find({})
         .then((data)=>{
@@ -87,10 +88,60 @@ exports.index = function(req, res){
           console.log(err2);
         })
 
+        Usergate.find({})
+        .then((data2)=>{
+            usergates = data2
+         })
+        .catch((err2)=>{
+          console.log(err2);
+        })
+
         res.render('admin',{
             nrp:nrp,
             user:global.users,
-            gate:global.gates
+            gate:global.gates,
+            usergates:global.usergates
         });        
 	}
+
+
+  // exports.addusergate = function(req, res){
+       
+  // }  
+
+  // exports.deleteusergate = function(req, res){
+       
+  // }    
+
+  exports.adduser = function(req, res){
+    User.findOne({ nrp: req.body.nrp }) 
+    .then((doc) => {
+       if (doc) {
+         console.log(doc);
+         res.redirect('/admin');
+       } else {
+         console.log("no data exist for this id");
+         let newuser = new User({nrp:req.body.nrp, password:req.body.password}); // this is modal object.
+         newuser.save()
+           .then((data)=> {
+             console.log(data);
+             res.redirect('/admin');
+            })
+           .catch((err)=> {
+             console.log(err);
+             res.redirect('/admin');
+           })         
+       }
+    })
+   .catch((err) => {
+     console.log(err);
+     res.redirect('/admin');
+    });       
+  }  
+
+  // exports.deleteuser = function(req, res){
+       
+  // }
+
+
 }
