@@ -11,9 +11,11 @@ router.get('/login', Controller.login);
 router.get('/logout', Controller.dologout);
 router.post('/dologin', Controller.dologin);
 
-
 router.get('/admin', AdminController.index);
-router.post('/addrule', AdminController.addrule);
+
+router.post('/addgate', AdminController.addgate);
+router.get('/deletegate/:id', AdminController.deletegate);
+router.post('/updategate', AdminController.updategate);
 
 
 
