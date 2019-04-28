@@ -5,10 +5,11 @@ const router = express.Router();
 let Log = require('../model/log');
 let User = require('../model/user');
 let Gate = require('../model/gate');
+let Usergate = require('../model/usergate');
 
 exports.home = function(req, res){
 
-	if(req.session.nrp === '-'){
+	if(req.session.nrp === '-' || req.session.nrp === 'undefined'){
 		req.session.nrp = '-';
 		res.redirect('/login');
 	}else{
@@ -23,13 +24,29 @@ exports.home = function(req, res){
 }
 
 exports.login = function(req, res){
-	res.render('login');
+
+
+	global.gates;
+
+	Gate.find({})
+	.then((data2)=>{
+		gates = data2
+	 })
+	.catch((err2)=>{
+	  console.log(err2);
+	})
+
+
+	res.render('login',{
+		gate:global.gates
+	});   
 }
 
 exports.dologin = function(req, res){
 
 	let nrp2 = req.body.nrp;
 	let password2 = req.body.password;
+	let gate2 = req.body.gate;
 
 	User.findOne({nrp:nrp2, password:password2})
 	.then((data)=>{
@@ -39,27 +56,37 @@ exports.dologin = function(req, res){
 	   }else{
 			
 			req.session.nrp = nrp2;
-			req.session.gate = data.gateid;
+			req.session.gate = gate2;
 			req.session.role = data.role;			
 
-			Gate.findOne({idgate:data.gateid})
+			Usergate.findOne({idgate:gate2, nrp:nrp2})
 			.then((data)=>{
-				 console.log("hehe"+data)
-				 console.log(Date.parse(data.start))
-				 console.log(Date.parse(data.end))
-				 console.log(Date.now())
-				 console.log(Date.parse(data.start) < Date.now() && Date.now() < Date.parse(data.end))
-				 if(Date.parse(data.start) < Date.now() && Date.now() < Date.parse(data.end)){
-					res.redirect('/');				 
-				 }else{
-					req.session.nrp = '-';
-					req.session.gate = '-';
-					req.session.role = '-';
-					res.redirect('/login');
-				 }			 
+				if(data){
+					Gate.findOne({idgate:gate2})
+					.then((data)=>{
+						 console.log("hehe"+data)
+						 console.log(Date.parse(data.start))
+						 console.log(Date.parse(data.end))
+						 console.log(Date.now())
+						 console.log(Date.parse(data.start) < Date.now() && Date.now() < Date.parse(data.end))
+						 if(Date.parse(data.start) < Date.now() && Date.now() < Date.parse(data.end)){ 
+							res.redirect('/');				 
+						 }else{
+							req.session.nrp = '-';
+							req.session.gate = '-';
+							req.session.role = '-';
+							res.redirect('/login');
+						 }			 
+					 })
+					.catch((err)=>{
+					  console.log(err);
+					})
+				}else{
+					res.send("null")
+				}
 			 })
 			.catch((err)=>{
-			  console.log(err);
+			  	res.data(err)
 			})
 
 	   }
