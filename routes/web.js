@@ -17,7 +17,8 @@ router.post('/addgate', AdminController.addgate);
 router.get('/deletegate/:id', AdminController.deletegate);
 router.post('/updategate', AdminController.updategate);
 
-router.post('/adduser', AdminController.adduser);
+router.post('/adduser', AdminController.addgate);
+// router.post('/adduser', AdminController.adduser);
 // router.get('/deleteuser/:id', AdminController.deleteuser);
 // router.get('/deleteusergate/:id', AdminController.deleteusergate);
 // router.post('/addusergate', AdminController.addusergate);

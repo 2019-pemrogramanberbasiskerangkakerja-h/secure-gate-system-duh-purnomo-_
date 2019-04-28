@@ -104,6 +104,7 @@ exports.index = function(req, res){
         });        
 	}
 
+}
 
   // exports.addusergate = function(req, res){
        
@@ -142,6 +143,3 @@ exports.index = function(req, res){
   // exports.deleteuser = function(req, res){
        
   // }
-
-
-}
