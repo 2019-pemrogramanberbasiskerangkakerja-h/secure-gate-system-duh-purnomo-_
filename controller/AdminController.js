@@ -106,30 +106,23 @@ exports.index = function(req, res){
 
 }
 
-  // exports.addusergate = function(req, res){
-       
-  // }  
+  exports.addusergate = function(req, res){
 
-  // exports.deleteusergate = function(req, res){
-       
-  // }    
-
-  exports.adduser = function(req, res){
-    User.findOne({ nrp: req.body.nrp }) 
+    Usergate.findOne({idgate:req.body.gate, nrp:req.body.nrp}) 
     .then((doc) => {
        if (doc) {
-         console.log(doc);
+        //  res.send(doc)
          res.redirect('/admin');
        } else {
          console.log("no data exist for this id");
-         let newuser = new User({nrp:req.body.nrp, password:req.body.password}); // this is modal object.
-         newuser.save()
+         let newusergate = new Usergate({idgate:req.body.gate, nrp:req.body.nrp}); // this is modal object.
+         newusergate.save()
            .then((data)=> {
-             console.log(data);
+            //  res.send(data)
              res.redirect('/admin');
             })
            .catch((err)=> {
-             console.log(err);
+            //  res.send(err)
              res.redirect('/admin');
            })         
        }
@@ -140,6 +133,58 @@ exports.index = function(req, res){
     });       
   }  
 
-  // exports.deleteuser = function(req, res){
-       
-  // }
+  exports.deleteusergate = function(req, res){
+   Usergate.findOneAndRemove({_id: req.params.id})
+     .then((docs)=>{
+        if (err) {
+            res.send(err);
+        }else{
+            res.redirect('/admin');
+        }
+        
+   }).catch((err)=>{
+    console.log(err)
+    res.redirect('/admin');
+   })        
+  }    
+
+  exports.adduser = function(req, res){
+    User.findOne({ nrp: req.body.nrp }) 
+    .then((doc) => {
+       if (doc) {
+        //  res.send(doc)
+         res.redirect('/admin');
+       } else {
+         console.log("no data exist for this id");
+         let newuser = new User({nrp:req.body.nrp, password:req.body.password}); // this is modal object.
+         newuser.save()
+           .then((data)=> {
+            //  res.send(data)
+             res.redirect('/admin');
+            })
+           .catch((err)=> {
+            //  res.send(err)
+             res.redirect('/admin');
+           })         
+       }
+    })
+   .catch((err) => {
+     console.log(err);
+     res.redirect('/admin');
+    });       
+  }  
+
+  exports.deleteuser = function(req, res){
+   User.findOneAndRemove({_id: req.params.id})
+     .then((docs)=>{
+        if (err) {
+            res.send(err);
+        }else{
+            res.get('/admin');
+        }
+        
+   }).catch((err)=>{
+    console.log(err)
+    res.redirect('/admin');
+   })           
+  }

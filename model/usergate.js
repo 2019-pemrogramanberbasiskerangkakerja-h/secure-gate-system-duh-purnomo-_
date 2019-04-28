@@ -9,7 +9,7 @@ let usergateSchema = mongoose.Schema({
 	idgate:{
 		type: String,
 		require: true
-    },       
+  },       
 });
 
 const Usergate = module.exports = mongoose.model('usergate', usergateSchema);

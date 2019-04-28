@@ -80,9 +80,10 @@ exports.dologin = function(req, res){
 					 })
 					.catch((err)=>{
 					  console.log(err);
+					  res.redirect('/login');
 					})
 				}else{
-					res.send("null")
+					res.redirect('/login');
 				}
 			 })
 			.catch((err)=>{

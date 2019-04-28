@@ -21,14 +21,18 @@
                             <thead>
                                 <th>NRP</th>
                                 <th>Password</th>
-                                <th>Gates</th>
+                                <th>Action</th>
                             </thead>
                             <tbody>
                                 <% user.forEach(function(user){%>
                                 <tr>
                                     <td><%= user.nrp %></td>
                                     <td><%= user.password %></td>
-                                    <td><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#usermyModal<%= user.nrp %>">Ubah</button></td>
+                                    <td>
+                                        
+                                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#usermyModal<%= user.nrp %>">Ubah</button>
+                                        <a class="btn btn-warning btn-sm" href="/deleteuser/<%= user.id %>">Hapus</a>
+                                    </td>
                                 </tr>
                                 <div class="modal fade" id="usermyModal<%= user.nrp %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -40,8 +44,8 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="/updategate" method="POST">
-                                                <input class="form-control" type="hidden" name="id" id="" value="<%= gate.id %>" required>
+                                                <form action="/addusergate" method="POST">
+                                                <input class="form-control" type="hidden" name="nrp" id="" value="<%= user.nrp %>" required>
                                                 <div class="form-group">
                                                     <label for="">Gate</label>
                                                     <select class="form-control" name="gate" id="">
@@ -53,7 +57,7 @@
                                                 <div class="form-group">
                                                     <% usergates.forEach(function(usergates){%>
                                                         <% if(user.nrp == usergates.nrp){ %>
-                                                            <a href="">Gate <%= usergates.idgate %></a>
+                                                            <a href="/deleteusergate/<%= usergates.id %>">Gate <%= usergates.idgate %></a>
                                                         <% }%>
                                                     <% }) %>    
                                                 </div>                                                
