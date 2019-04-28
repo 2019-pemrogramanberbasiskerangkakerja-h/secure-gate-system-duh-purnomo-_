@@ -55,8 +55,7 @@ exports.updategate = function(req, res){
         if (err) {
             console.log("Something wrong when updating data!");
         }
-        res.send(doc);
-        //res.redirect('/admin');
+        res.redirect('/admin');
         console.log(doc);
     });
 }
