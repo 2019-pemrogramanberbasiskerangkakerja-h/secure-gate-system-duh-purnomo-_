@@ -2,18 +2,22 @@ let mongoose = require('mongoose');
 
 // Log Schema
 let logSchema = mongoose.Schema({
-	user:{
+	nrp:{
 		type: String,
 		required: true
 	},
-	action:{
+	gate:{
 		type: String,
 		required: true
     },	
 	time:{
 		type: Date,
 		required: true
-	},	    
+	},	   
+	status:{
+		type: String,
+		required: true
+	},		 
 });
 
 let Log = module.exports = mongoose.model('log', logSchema);

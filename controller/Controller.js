@@ -70,12 +70,32 @@ exports.dologin = function(req, res){
 						 console.log(Date.now())
 						 console.log(Date.parse(data.start) < Date.now() && Date.now() < Date.parse(data.end))
 						 if(Date.parse(data.start) < Date.now() && Date.now() < Date.parse(data.end)){ 
-							res.redirect('/');				 
+							
+							let newlog = new Log({nrp:req.session.nrp, gate:req.session.gate, status:"berhasil", time:Date.now()}); // this is modal object.
+							newlog.save()
+							  .then((data)=> {
+								// res.send(data);
+								res.redirect('/');
+							   })
+							  .catch((err)=> {
+								console.log(err);
+							  })							 
+							
+							
 						 }else{
-							req.session.nrp = '-';
-							req.session.gate = '-';
-							req.session.role = '-';
-							res.redirect('/login');
+							let newlog = new Log({nrp:req.session.nrp, gate:req.session.gate, status:"gagal", time:Date.now()}); // this is modal object.
+							newlog.save()
+							  .then((data)=> {
+								// res.send(data);
+								req.session.nrp = '-';
+								req.session.gate = '-';
+								req.session.role = '-';
+								res.redirect('/login');
+							   })
+							  .catch((err)=> {
+								console.log(err);
+							  })								 
+
 						 }			 
 					 })
 					.catch((err)=>{
@@ -100,6 +120,16 @@ exports.dologin = function(req, res){
 
 
 exports.dologout = function(req, res){
-	req.session.nrp = '-';
-   res.redirect('/login');
+	let newlog = new Log({nrp:req.session.nrp, gate:req.session.gate, status:"keluar", time:Date.now()}); // this is modal object.
+	newlog.save()
+	  .then((data)=> {
+		// res.send(data);
+		req.session.nrp = '-';
+		req.session.gate = '-';
+		req.session.role = '-';
+		res.redirect('/login');
+	   })
+	  .catch((err)=> {
+		console.log(err);
+	  })		
 }
