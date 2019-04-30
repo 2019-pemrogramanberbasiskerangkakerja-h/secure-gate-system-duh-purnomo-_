@@ -66,6 +66,14 @@ exports.index = function(req, res){
 		req.session.nrp = '-';
 		res.redirect('/login');
 	}else{
+
+        if(req.session.role === '1'){
+          // res.send("if");
+          res.redirect('/');          
+        }else{
+          // res.send("else");
+        }
+
         var nrp = req.session.nrp;
         
         global.gates;
