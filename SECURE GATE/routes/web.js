@@ -2,28 +2,22 @@ const express = require('express');
 const router = express.Router();
 
 // DEKLARASI CONTROLLER
-const Controller = require('../controller/Controller');
-const AdminController = require('../controller/AdminController');
+const GateController = require('../controller/GateController');
+const GroupController = require('../controller/GroupController');
 
 // ROUTINGNYA
-router.get('/', Controller.home);
-router.get('/login', Controller.login);
-router.get('/logout', Controller.dologout);
-router.post('/dologin', Controller.dologin);
-
-router.get('/admin', AdminController.index);
-
-router.post('/addgate', AdminController.addgate);
-router.get('/deletegate/:id', AdminController.deletegate);
-router.post('/updategate', AdminController.updategate);
-
-router.post('/adduser', AdminController.adduser);
-router.get('/deleteuser/:id', AdminController.deleteuser);
-router.get('/deleteusergate/:id', AdminController.deleteusergate);
-router.post('/addusergate', AdminController.addusergate);
-
-router.post('/adduser/:username/:password/:grup', AdminController.apihehe);
 
 
+router.post('/gate', GateController.addgate);
+router.get('/gates', GateController.getgates);
+router.get('/gate/:id', GateController.getgate);
+router.put('/gate', GateController.updategate);
+router.delete('/gate/:id', GateController.deletegate);
+
+router.post('/group', GroupController.addgroup);
+router.get('/groups', GroupController.getgroup);
+router.get('/group/:id', GroupController.getgroup);
+router.put('/group', GroupController.updategroup);
+router.delete('/group/:id', GroupController.deletegroup);
 
 module.exports = router;
