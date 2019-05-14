@@ -10,7 +10,8 @@ exports.login = function(req, res){
 	var password = md5(req.body.password);
 	var gate = req.body.gate;
 
-	connection.query('select user.nrp, grup.gate_id, gate.open, gate.close from user, grup, gate where user.nrp = ? and user.password = ? and grup.group = user.grup_id and grup.gate_id = ? and grup.gate_id = gate.gate', [nrp, password, gate], function(error, row, fields) {
+	connection.query('select user.nrp, grup.gate_id, gate.open, gate.close from user, grup, gate where user.nrp = ? and user.password = ? and grup.group_name = user.grup_id and grup.gate_id = ? and grup.gate_id = gate.gate', [nrp, password, gate], function(error, row, fields) {
+
 		if(error) {
 			res.send(error);
 		}
@@ -20,7 +21,7 @@ exports.login = function(req, res){
 				var respond = {};
 				respond["error"] = 1;
 				respond["message"] = "NRP/Password Salah!";
-				obj = JSON.stringify(respond);
+				obj = JSON.stringify(row);
 				res.send(obj);
 			}else{
 
