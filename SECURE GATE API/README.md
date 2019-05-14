@@ -21,9 +21,24 @@
 - Query Parameters
 	- None
 - Returns:
-	- `{ "result": [ list of gate object ] }`
-- Errors:
-	- `{ "message": "error message"  }`
+	- `{
+    "error": 0,
+    "message": [
+        {
+            "id": 7,
+            "gate": "IF105",
+            "open": "2019-01-01T16:59:59.000Z",
+            "close": "2019-12-01T16:59:59.000Z"
+        },
+        {
+            "id": 8,
+            "gate": "IF106",
+            "open": "2020-01-01T16:59:59.000Z",
+            "close": "2020-12-01T16:59:59.000Z"
+        }
+    ]
+}`
+
 
 ### Create Gate (`POST` `/gate`)
 
