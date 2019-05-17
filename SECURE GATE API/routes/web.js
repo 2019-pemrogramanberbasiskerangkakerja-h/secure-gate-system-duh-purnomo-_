@@ -11,6 +11,9 @@ const GroupController = require('../controller/GroupController');
 // String = nrp,password,gate,group
 // Timestamp  = open, close
 
+router.get('/logs', UserController.getlogs);
+router.get('/', UserController.getlogs);
+
 router.post('/login', UserController.login);
 // Form Body (nrp, password, gate) (untuk login)
 
