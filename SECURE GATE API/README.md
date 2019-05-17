@@ -7,24 +7,24 @@
 - Query Parameters
 	- None
 
-### Create Gate (`POST` `/gate`)
+### Create Gate (`POST` `/gates`)
 
 - Parameters:
 	- `gate`: `STRING`
 	- `open`: `TIMESTAMP`
 	- `close`: `TIMESTAMP`
 
-### Gate Details (`GET` `/gate/:id`)
+### Gate Details (`GET` `/gates/:id`)
 
 - Path Parameters:
 	- `:id`: `STRING (Nama Gate)` 
 
-### Delete Gate (`DELETE` `/gate/:id`)
+### Delete Gate (`DELETE` `/gates/:id`)
 
 - Path Parameters:
-	- `:id`: `STRING (Nama Gate)` 
+	- `:id`: `INTEGER`
 
-### Update Gate (`PUT` `/gate`)
+### Update Gate (`PUT` `/gates`)
 
 - Parameters:
 	- `gate`: `STRING`
@@ -39,26 +39,26 @@
 - Query Parameters
 	- None
 
-### Create Group (`POST` `/grup`)
+### Create Group (`POST` `/grups`)
 
 - Parameters:
 	- `group`: `STRING`
 	- `gate`: `STRING`
 
-### Group Details (`GET` `/grup/:id`)
+### Group Details (`GET` `/grups/:id`)
 
 - Path Parameters:
 	- `:id`: `STRING (Nama Group)`
 
-### Delete Group (`DELETE` `/grup/:id`)
+### Delete Group (`DELETE` `/grups/:id`)
 
 - Path Parameters:
-	- `:id`: `STRING (Nama Group)`
+	- `:id`: `INTEGER`
 
-### Update Group (`PUT` `/grup`)
+### Update Group (`PUT` `/grups`)
 
 - Parameters:
-	- `group`: `STRING`
+	- `:id`: `INTEGER`
 	- `gate`: `STRING`
 
 
@@ -69,7 +69,7 @@
 - Query Parameters
 	- None
 
-### Create User (`POST` `/auser`)
+### Create User (`POST` `/users`)
 
 - Parameters:
 	- `nrp`: `STRING`
@@ -81,12 +81,12 @@
 - Path Parameters:
 	- `:nrp`: `STRING`
 
-### Delete User (`DELETE` `/user/:id`)
+### Delete User (`DELETE` `/users/:id`)
 
 - Path Parameters:
-	- `:id`: `STRING`
+	- `:id`: `INTEGER`
 
-### Set User Group (`PUT` `/user`)
+### Set User Group (`PUT` `/users`)
 
 - Parameters:
 	- `nrp`: `STRING`
